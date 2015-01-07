@@ -1,0 +1,33 @@
+
+
+def enum(**enums):
+    return type('Enum', (), enums)
+
+Status = enum(STOPPED=0, RUNNING=1, CLEANING=2, ALARMED=3)
+Watching = enum(NO=0, YES=1)
+
+""" Prod times """
+FULL_LOAD_TIME = 35
+MAX_START_TIME = 120
+CLEANUP_TIME = 300
+
+
+""" Test Times"""
+"""
+FULL_LOAD_TIME = 10
+MAX_START_TIME = 12
+CLEANUP_TIME = 5
+"""
+"""
+GPIO INPUTS AND OUTPUTS
+"""
+OUT_ENDLESS_FULL_LOAD = 23
+OUT_ENDLESS_REGULATED_LOAD = 21
+OUT_START = 19
+OUT_REGULATED_SPEED = 13
+OUT_CLEANUP_SPEED = 11
+OUT_ALARM = 7
+
+IN_THERMO = 10
+IN_START_FLAG = 12
+IN_RESET_ALARM = 18
