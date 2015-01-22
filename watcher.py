@@ -37,4 +37,5 @@ class Watcher(object):
                 return
 
     def stop_watch(self):
+        logger.info('Stopping watch')
         self.watching = Watching.NO

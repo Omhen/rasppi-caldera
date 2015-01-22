@@ -95,6 +95,7 @@ class Cycle(object):
         self.watcher.stop_watch()
 
     def alarm(self):
+        logger.info('Alarm being raised')
         self.stop()
         self.status = Status.ALARMED
         RPIO.output(OUT_ALARM, False)
