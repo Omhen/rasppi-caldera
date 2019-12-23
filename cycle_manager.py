@@ -28,11 +28,11 @@ class CycleManager(object):
             runner = threading.Thread(target=self.cycle.start, name='CycleRunner')
             runner.start()
         elif self.cycle.status == Status.ALARMED:
-            logger.error('start_cycle: Alarma activada, revisa el estado de la caldera y reinicia programa')
+            logger.error('start_cycle: Alarma activated. Review status of heating system, and resume execution')
         elif self.cycle.status == Status.RUNNING:
-            logger.warn('start_cycle: Ya existe un ciclo en ejecucion. No se puede iniciar uno nuevo hasta que el ciclo actual termine')
+            logger.warn('start_cycle: There is a cycle already being executed. Cannot start a new cycle')
         elif self.cycle.status == Status.CLEANING:
-            logger.warn('start_cycle: Ciclo acutal haciendo barrido. Imposible iniciar nuevo ciclo hasta que barrido termine')
+            logger.warn('start_cycle: The current cycle is cleaning up. Imposible to start a new cycle until the current cycle finishes')
         else:
             logger.error('start_cycle: Should not have reached this code')
 
@@ -51,9 +51,10 @@ class CycleManager(object):
                 return
             #If the thermo is deactivated, start cleanup
             self.check_stop_later = None
-            logger.info('Starting cleanup thread')
-            cleaner = threading.Thread(target=self.cycle.cleanup, name='CycleCleaner')
-            cleaner.start()
+            self.cycle.cleanup()
+            if event_handler.is_thermo_active():
+                logger.info('Thermo active after cleanup. Checking if a new cycle can start')
+                event_handler.manage_cycle_event()
 
     def start_watch(self):
         if self.cycle and self.cycle.status == Status.RUNNING:

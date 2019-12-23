@@ -32,7 +32,7 @@ def manage_cycle(gpio_id, value):
     if current_cycle_status == value:
         return
     current_cycle_status = value
-    logger.info('Detectado cambio %d, value %d' % (gpio_id, value))
+    logger.info('manage_cycle: change detected on %d, value %d' % (gpio_id, value))
     event_handler.manage_cycle_event()
 
 
@@ -49,7 +49,7 @@ def manage_reset_alarm(gpio_id, value):
     if current_alarm_status == value:
         return
     current_alarm_status = value
-    logger.info('Detectado alarm reset %d, value %d' % (gpio_id, value))
+    logger.info('Alarm reset detected %d, value %d' % (gpio_id, value))
     if event_handler.manage_reset_alarm_event():
         global current_cycle_status
         # 'not' bacause True means thermo disabled and tick_cycle_management returns True if thermo enabled

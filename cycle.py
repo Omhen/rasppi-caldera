@@ -86,7 +86,7 @@ class Cycle(object):
         RPIO.output(OUT_CLEANUP_SPEED, True)
         end_time = datetime.now()
         delta = end_time - self.start_time
-        logger.info('Ciclo ejecutado durante %f segundos' % delta.total_seconds())
+        logger.info('Cycle run for %f seconds' % delta.total_seconds())
 
     def start_watch(self):
         self.watcher.start_watch()
